@@ -1,0 +1,22 @@
+#' @title Subcortical
+#'
+#' @description Simulated volumes of subcortical structures are used as an example for this function.
+#' You can calculate QRI for this dataset"
+#'
+#' @format A data frame with 8000 rows and 12 variables:
+#' \describe{
+#'   \item{ID}{subjects' ID}
+#'   \item{Age}{subjects' age}
+#'   \item{Control}{indicators of control group}
+#'   \item{Sex}{subjects' gehder}
+#'   \item{Ventricle}{Simulated volumes of Ventricle}
+#'   \item{Thalamus}{Simulated volumes of Thalamus}
+#'   \item{Caudate}{Simulated volumes of Caudate}
+#'   \item{Putamen}{Simulated volumes of Putamen}
+#'   \item{Palladium}{Simulated volumes of Palladium}
+#'   \item{Hippocampus}{Simulated volumes of Hippocampus}
+#'   \item{Amygdala}{Simulated volumes of Amygdala}
+#'   \item{Accumbens}{Simulated volumes of Accumbens}
+#' }
+#' @source subcortical is from Maryland Psychiatric Research Center, Department of Psychiatry, University of Maryland School of Medicine.
+"subcortical"
