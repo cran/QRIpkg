@@ -1,7 +1,9 @@
-ab9ad242b4c146b5cdd62f4e2f6121df *DESCRIPTION
-a823c6b5f837d0700a21edd38686a59f *NAMESPACE
-5035c4fcc40896338a7ae8cfbcd26952 *R/QRI_func.R
+6c500d07fc51010c80ceb24db871373c *DESCRIPTION
+1e39af513f1fc64241de08e013a4a0f8 *NAMESPACE
+93b449202ed6c718a7d3a32036c6887e *R/QRI_func.R
+bfa8b3144e020c5ad09a2a21b998caf9 *R/QRI_plot.R
 91dc683abbfe6b4eabc22d0a3122f546 *R/subcortical.R
 ec8a6ec224cb8cd16bfc319dbfecdf9c *data/subcortical.rda
-1cee623997f0f1f700cdbc5f2c47f69d *man/QRI_func.Rd
+23df9acc99ddf604a56410ba1067fe4b *man/QRI_func.Rd
+1d8a9b02ac1f1c9445db6df779d1ec82 *man/QRI_plot.Rd
 c09e957d026f5ee85f59cb49fd9ea8a3 *man/subcortical.Rd

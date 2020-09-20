@@ -1,11 +1,11 @@
-#' @title Quantile Regression Index (QRI) Score
+#' @title Quantile Regression Index Score
 #' @description
-#' QRI.func performs quantile regression analysis using age and sex as predictors to calculate
+#' The QRI_func() performs quantile regression analysis using age and sex as predictors to calculate
 #' the Quantile Regression Index (QRI) score for each individual’s regional brain imaging metrics
 #' and then averages across the regional scores to generate an average tissue specific score for each subject.
 #' The QRI indicates individual deviations from the expected aging trajectory.
 #' Positive QRI indicates accelerated vs. expected aging trajectory while negative QRI indicates delayed aging.
-#' The expected aging trajectory is modeled based on sample of controls (DX=0).
+#' The expected aging trajectory is modeled based on sample of controls.
 #' @param ID a column name of subject ID in data
 #' @param DXcontrol The expected aging trajectory should only be calculated from the controls(i.e. DXcontrol='control==0').
 #' If DXcontrol=NULL, the expected aging trajectory will be calculated from the full data.
@@ -13,19 +13,18 @@
 #' @param resp.range a column range of responses
 #' @param data a data frame contains predictors and responses in the quantile regression model.
 #' @details
-#' The QRI score can be used as an alternative to BrainAge to assess accelerated brain aging by determining an
-#' individuals' placement on the expected aging trajectory.A study by Ryan et al (2020) demonstrated that QRI
-#' and BrainAge share up to 80% of the variance in both patients and controls. The typical function usage involves
-#' calling the QRI function with the following parameters (age, sex) on a list of tissue-specific neuroimaging traits
-#' such as regional white matter fractional anisotropy, regional gray matter cortical thickness, or gray matter subcortical
-#' volumes. Quantile regression is performed using the controls (DX=0) to generate the normative curves for the
-#' 5th, 50th, and 95th percentiles. Then each patient (DX=1) and control’s individual data is compared to the expected aging
-#' trajectory. Each regional measure is assigned a score based upon its location: values > 95% of the expected age data are
-#' assigned a value of “-1”; values < 5% receive a value of “1”; all others are assigned “0”. The function then averages across
-#' the regional data to generate a tissue-specific QRI score (i.e. white matter QRI).
+#' The QRI score can be used as an alternative to BrainAge to assess accelerated brain aging by determining an individuals' placement
+#' on the expected aging trajectory.A study by Ryan et al (2020) demonstrated that QRI and BrainAge share up to 80% of the variance in
+#' both patients and controls. The typical function usage involves calling the QRI function with the following parameters (age, sex) on
+#' a list of tissue-specific neuroimaging traits such as regional white matter fractional anisotropy, regional gray matter cortical
+#' thickness, or gray matter subcortical volumes. Quantile regression is performed using the controls (DXcontrol='control==0') to generate
+#' the normative curves for the 5th, 50th, and 95th percentiles. Then each patient (DXcontrol='control==1') and control’s individual
+#' (DXcontrol='control==0') data is compared to the expected aging trajectory. Each regional measure is assigned a score based upon its
+#' location: values > 95% of the expected age data are assigned a value of “-1”; values < 5% receive a value of “1”; all others are
+#' assigned “0”. The function then averages across the regional data to generate a tissue-specific QRI score (i.e. white matter QRI).
 #' @return This function returns the average tissue-specific QRI scores for all subjects.
 #' @note
-#' Quantile Regression Index (QRI) function is developed at the Maryland Psychiatric Research Center, Department of Psychiatry,
+#' The QRI_func() function is developed at the Maryland Psychiatric Research Center, Department of Psychiatry,
 #' University of Maryland School of Medicine. This project is supported by NIH R01 EB015611 grant. Please cite our funding if
 #' you use this software.
 #'
@@ -41,7 +40,7 @@
 #' Foundation for Statistical Computing, Vienna, Austria. URL
 #' https://www.R-project.org/.
 #' @examples
-#' QRI <- QRI_func(ID='ID', DXcontrol='Control==0', predictors=c('Age','Sex'), resp.range=c(5:7),
+#' QRI <- QRI_func(ID='ID', DXcontrol='Control==0', predictors=c('Age','Sex'), resp.range=c(5:6),
 #' data=QRIpkg::subcortical)
 #' @export
 
@@ -84,16 +83,3 @@ QRI_func <- function(ID, DXcontrol, predictors, resp.range, data) {
 
   return(QRI.score)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

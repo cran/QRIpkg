@@ -1,6 +1,6 @@
 Package: QRIpkg
-Title: Quantile Regression Index (QRI) Score
-Version: 0.1.0
+Title: Quantile Regression Index Score
+Version: 0.2.0
 Authors@R: c(
     person(given = "Peter",
            family = "Kochunov",
@@ -15,18 +15,18 @@ Authors@R: c(
            role = c("aut"),
            email = "mcryan@som.umaryland.edu")
            )
-Description: QRI function performs quantile regression analysis using age and sex as predictors to calculate the Quantile Regression Index (QRI) score for each individual’s regional brain imaging metrics and then averages across the regional scores to generate an average tissue specific score for each subject. 
+Description: The QRI_func() function performs quantile regression analysis using age and sex as predictors to calculate the Quantile Regression Index (QRI) score for each individual’s regional brain imaging metrics and then averages across the regional scores to generate an average tissue specific score for each subject. The QRI_plot() is used to plot QRI and generate the normative curves for individual measurements.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Depends: R (>= 2.10)
-Imports: stats, quantreg
+Imports: ggplot2, quantreg, stats
 NeedsCompilation: no
-Packaged: 2020-08-24 13:24:14 UTC; AbestSG
+Packaged: 2020-09-20 16:44:33 UTC; AbestSG
 Author: Peter Kochunov [aut],
   Si Gao [aut, cre],
   Meghann Ryan [aut]
 Maintainer: Si Gao <sgao@som.umaryland.edu>
 Repository: CRAN
-Date/Publication: 2020-08-26 22:40:06 UTC
+Date/Publication: 2020-09-20 17:00:02 UTC
