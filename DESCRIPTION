@@ -1,6 +1,6 @@
 Package: QRIpkg
 Title: Quantile Regression Index Score
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
     person(given = "Peter",
            family = "Kochunov",
@@ -23,10 +23,10 @@ RoxygenNote: 7.1.1
 Depends: R (>= 2.10)
 Imports: ggplot2, quantreg, stats
 NeedsCompilation: no
-Packaged: 2020-09-20 16:44:33 UTC; AbestSG
+Packaged: 2020-10-20 01:39:33 UTC; AbestSG
 Author: Peter Kochunov [aut],
   Si Gao [aut, cre],
   Meghann Ryan [aut]
 Maintainer: Si Gao <sgao@som.umaryland.edu>
 Repository: CRAN
-Date/Publication: 2020-09-20 17:00:02 UTC
+Date/Publication: 2020-10-20 14:10:02 UTC

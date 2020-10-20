@@ -4,19 +4,21 @@
 \alias{QRI_func}
 \title{Quantile Regression Index Score}
 \usage{
-QRI_func(ID, DXcontrol, predictors, resp.range, data)
+QRI_func(ID, DXcontrol, predictors, resp.range, rev.sign.col = NULL, data)
 }
 \arguments{
-\item{ID}{a column name of subject ID in data}
+\item{ID}{a column name of subject IDs in data.}
 
 \item{DXcontrol}{The expected aging trajectory should only be calculated from the controls(i.e. DXcontrol='control==0').
 If DXcontrol=NULL, the expected aging trajectory will be calculated from the full data.}
 
-\item{predictors}{column names of predictors (i.e. age, sex)}
+\item{predictors}{a character vector specifying column names of predictors (i.e. 'Age', 'Sex').}
 
-\item{resp.range}{a column range of responses}
+\item{resp.range}{a numeric vector specifying column range of responses.}
 
-\item{data}{a data frame contains predictors and responses in the quantile regression model.}
+\item{rev.sign.col}{an optional numeric vector specifying columns. QRI signs of corresponding columns will be reversed(i.e. rev.sign.col=5).}
+
+\item{data}{a data frame contains a column of subject IDs, a column of controls, columns of predictors and columns of responses.}
 }
 \value{
 This function returns the average tissue-specific QRI scores for all subjects.
@@ -51,7 +53,7 @@ Peter Kochunov. The Additive Impact of Metabolic Disorders and Psychiatric Illne
 }
 \examples{
 QRI <- QRI_func(ID='ID', DXcontrol='Control==0', predictors=c('Age','Sex'), resp.range=c(5:6),
-data=QRIpkg::subcortical)
+rev.sign.col = 5, data=QRIpkg::subcortical)
 }
 \references{
 Roger Koenker (2020). quantreg: Quantile

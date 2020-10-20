@@ -6,12 +6,13 @@
 #' The QRI indicates individual deviations from the expected aging trajectory.
 #' Positive QRI indicates accelerated vs. expected aging trajectory while negative QRI indicates delayed aging.
 #' The expected aging trajectory is modeled based on sample of controls.
-#' @param ID a column name of subject ID in data
+#' @param ID a column name of subject IDs in data.
 #' @param DXcontrol The expected aging trajectory should only be calculated from the controls(i.e. DXcontrol='control==0').
 #' If DXcontrol=NULL, the expected aging trajectory will be calculated from the full data.
-#' @param predictors column names of predictors (i.e. age, sex)
-#' @param resp.range a column range of responses
-#' @param data a data frame contains predictors and responses in the quantile regression model.
+#' @param predictors a character vector specifying column names of predictors (i.e. 'Age', 'Sex').
+#' @param resp.range a numeric vector specifying column range of responses.
+#' @param rev.sign.col an optional numeric vector specifying columns. QRI signs of corresponding columns will be reversed(i.e. rev.sign.col=5).
+#' @param data a data frame contains a column of subject IDs, a column of controls, columns of predictors and columns of responses.
 #' @details
 #' The QRI score can be used as an alternative to BrainAge to assess accelerated brain aging by determining an individuals' placement
 #' on the expected aging trajectory.A study by Ryan et al (2020) demonstrated that QRI and BrainAge share up to 80% of the variance in
@@ -41,10 +42,10 @@
 #' https://www.R-project.org/.
 #' @examples
 #' QRI <- QRI_func(ID='ID', DXcontrol='Control==0', predictors=c('Age','Sex'), resp.range=c(5:6),
-#' data=QRIpkg::subcortical)
+#' rev.sign.col = 5, data=QRIpkg::subcortical)
 #' @export
 
-QRI_func <- function(ID, DXcontrol, predictors, resp.range, data) {
+QRI_func <- function(ID, DXcontrol, predictors, resp.range, rev.sign.col = NULL, data) {
   resp.data <- data.frame(data[,resp.range])
   resp.names <- names(data)[resp.range]
   colnames(resp.data) <- resp.names
@@ -75,7 +76,13 @@ QRI_func <- function(ID, DXcontrol, predictors, resp.range, data) {
     }
 
     QRI.score <- cbind(QRI.score,tmp$score)
-    }
+  }
+
+  if(is.null(rev.sign.col)!=T){
+    rev.names <- names(data)[rev.sign.col]
+    rev.QRI.idx <- match(rev.names,resp.names)+1
+    QRI.score[,rev.QRI.idx] <- QRI.score[,rev.QRI.idx]*(-1)
+  }
 
   colnames(QRI.score) <- c(ID,paste0(resp.names,'.','QRI'))
   average.QRI <- rowMeans(data.frame(QRI.score[,-1]), na.rm = T)
