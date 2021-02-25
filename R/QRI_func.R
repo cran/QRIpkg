@@ -6,6 +6,7 @@
 #' The QRI indicates individual deviations from the expected aging trajectory.
 #' Positive QRI indicates accelerated vs. expected aging trajectory while negative QRI indicates delayed aging.
 #' The expected aging trajectory is modeled based on sample of controls.
+#' @param formula an string of "formula" for Quantile Regression model for QRI.
 #' @param ID a column name of subject IDs in data.
 #' @param DXcontrol The expected aging trajectory should only be calculated from the controls(i.e. DXcontrol='control==0').
 #' If DXcontrol=NULL, the expected aging trajectory will be calculated from the full data.
@@ -41,11 +42,12 @@
 #' Foundation for Statistical Computing, Vienna, Austria. URL
 #' https://www.R-project.org/.
 #' @examples
-#' QRI <- QRI_func(ID='ID', DXcontrol='Control==0', predictors=c('Age','Sex'), resp.range=c(5:6),
-#' rev.sign.col = 5, data=QRIpkg::subcortical)
+#' QRI <- QRI_func(formula= 'y ~ poly(Age, 2, raw = TRUE)', ID='ID', DXcontrol='Control==0',
+#' predictors=c('Age'), resp.range=c(5:6), rev.sign.col = 5, data=QRIpkg::subcortical)
 #' @export
 
-QRI_func <- function(ID, DXcontrol, predictors, resp.range, rev.sign.col = NULL, data) {
+QRI_func <- function(formula, ID, DXcontrol, predictors, resp.range, rev.sign.col = NULL, data) {
+  rq.formula <- stats::as.formula(formula)
   resp.data <- data.frame(data[,resp.range])
   resp.names <- names(data)[resp.range]
   colnames(resp.data) <- resp.names
@@ -55,10 +57,12 @@ QRI_func <- function(ID, DXcontrol, predictors, resp.range, rev.sign.col = NULL,
   else{
     control.data <- subset(data,eval(parse(text=DXcontrol)))}
 
+  resp.control.data <- data.frame(control.data[,resp.range])
+
   QRI.score <- data.frame(ID=data[,which(names(data)==ID)])
 
   for (j in 1:ncol(resp.data)) {
-    rq.formula <- stats::as.formula(paste(resp.names[j], ' ~ ', paste('poly(', paste(predictors, collapse = "+"), ',2,raw=TRUE',')' )))
+    y <- unlist(resp.control.data[j])
     model1 <- quantreg::rq(rq.formula,data=control.data, tau=0.05)
     model2 <- quantreg::rq(rq.formula,data=control.data, tau=0.95)
 
@@ -74,7 +78,6 @@ QRI_func <- function(ID, DXcontrol, predictors, resp.range, rev.sign.col = NULL,
       else if(tmp$tmp.var[i] > tmp$CI.pred95.higher[i]){tmp$score[i] <- -1}
       else{tmp$score[i] <- 0}
     }
-
     QRI.score <- cbind(QRI.score,tmp$score)
   }
 

@@ -4,9 +4,19 @@
 \alias{QRI_func}
 \title{Quantile Regression Index Score}
 \usage{
-QRI_func(ID, DXcontrol, predictors, resp.range, rev.sign.col = NULL, data)
+QRI_func(
+  formula,
+  ID,
+  DXcontrol,
+  predictors,
+  resp.range,
+  rev.sign.col = NULL,
+  data
+)
 }
 \arguments{
+\item{formula}{an string of "formula" for Quantile Regression model for QRI.}
+
 \item{ID}{a column name of subject IDs in data.}
 
 \item{DXcontrol}{The expected aging trajectory should only be calculated from the controls(i.e. DXcontrol='control==0').
@@ -52,8 +62,8 @@ Bhim M. Adhikari, Heather Bruce, Stephanie Hare, Mark D. Kvarta, Neda Jahanshad,
 Peter Kochunov. The Additive Impact of Metabolic Disorders and Psychiatric Illnesses on Accelerated Brain Aging. In Review
 }
 \examples{
-QRI <- QRI_func(ID='ID', DXcontrol='Control==0', predictors=c('Age','Sex'), resp.range=c(5:6),
-rev.sign.col = 5, data=QRIpkg::subcortical)
+QRI <- QRI_func(formula= 'y ~ poly(Age, 2, raw = TRUE)', ID='ID', DXcontrol='Control==0',
+predictors=c('Age'), resp.range=c(5:6), rev.sign.col = 5, data=QRIpkg::subcortical)
 }
 \references{
 Roger Koenker (2020). quantreg: Quantile
